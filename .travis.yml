@@ -1,0 +1,26 @@
+language: c
+
+sudo: false
+
+env:
+  global:
+    - RACKET_DIR=~/racket
+  matrix:
+    - RACKET_VERSION=6.1.1
+    - RACKET_VERSION=HEAD
+
+before_install:
+  - git clone https://github.com/greghendershott/travis-racket.git
+  - cat travis-racket/install-racket.sh | bash
+  - export PATH="${RACKET_DIR}/bin:${PATH}"
+
+install:
+  - raco pkg install --deps search-auto --link $TRAVIS_BUILD_DIR/alexis-util
+
+before_script:
+
+script:
+  - raco test -xl alexis
+  - raco cover -f coveralls -d $TRAVIS_BUILD_DIR/converage
+
+after_script:

@@ -13,4 +13,5 @@
     "scribble-lib"
     "racket-doc"
     "typed-racket-doc"
-    "sandbox-lib"))
+    "sandbox-lib"
+    "cover"))
