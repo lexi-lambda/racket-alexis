@@ -21,6 +21,6 @@ before_script:
 
 script:
   - raco test -xl alexis
-  - raco cover -f coveralls -d $TRAVIS_BUILD_DIR/converage
+  - raco cover -f coveralls -d $TRAVIS_BUILD_DIR/coverage -c alexis
 
 after_script:
