@@ -20,7 +20,7 @@ install:
 before_script:
 
 script:
-  - raco test -xl alexis
+  - raco test -xc alexis
   - raco cover -f coveralls -d $TRAVIS_BUILD_DIR/coverage -c alexis
 
 after_script:
