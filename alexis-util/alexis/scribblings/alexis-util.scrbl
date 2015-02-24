@@ -11,3 +11,4 @@ with the usual @racket[typed/] collection.
 
 @include-section["alexis-util-untyped.scrbl"]
 @include-section["alexis-util-typed.scrbl"]
+@include-section["alexis-util-extras.scrbl"]
