@@ -6,8 +6,9 @@ env:
   global:
     - RACKET_DIR=~/racket
   matrix:
-    - RACKET_VERSION=6.1.1
-    - RACKET_VERSION=HEAD
+    - RACKET_VERSION=6.1.1 PACKAGE=alexis-util
+    - RACKET_VERSION=HEAD  PACKAGE=alexis-util
+    - RACKET_VERSION=HEAD  PACKAGE=alexis-multicast
 
 before_install:
   - git clone https://github.com/greghendershott/travis-racket.git
@@ -15,12 +16,12 @@ before_install:
   - export PATH="${RACKET_DIR}/bin:${PATH}"
 
 install:
-  - raco pkg install --deps search-auto --link $TRAVIS_BUILD_DIR/alexis-util $TRAVIS_BUILD_DIR/alexis-multicast
+  - raco pkg install --deps search-auto --link $TRAVIS_BUILD_DIR/$PACKAGE
 
 before_script:
 
 script:
   - raco test -xc alexis
-  - raco cover -f coveralls -d $TRAVIS_BUILD_DIR/coverage -c alexis
+  - raco cover -f coveralls -d $TRAVIS_BUILD_DIR/coverage -p $PACKAGE
 
 after_script:
