@@ -15,7 +15,7 @@ before_install:
   - export PATH="${RACKET_DIR}/bin:${PATH}"
 
 install:
-  - raco pkg install --deps search-auto --link $TRAVIS_BUILD_DIR/alexis-util
+  - raco pkg install --deps search-auto --link $TRAVIS_BUILD_DIR/alexis-util $TRAVIS_BUILD_DIR/alexis-multicast
 
 before_script:
 
