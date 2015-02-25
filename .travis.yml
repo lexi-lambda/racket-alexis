@@ -7,8 +7,7 @@ env:
     - RACKET_DIR=~/racket
   matrix:
     - RACKET_VERSION=6.1.1 PACKAGE=alexis-util
-    - RACKET_VERSION=HEAD  PACKAGE=alexis-util
-    - RACKET_VERSION=HEAD  PACKAGE=alexis-multicast
+    - RACKET_VERSION=6.1.1 PACKAGE=alexis-multicast
 
 before_install:
   - git clone https://github.com/greghendershott/travis-racket.git
