@@ -36,12 +36,4 @@
    (check-equal? (async-channel-get c) 'c)
    (check-equal? (async-channel-get c) 'd))
   
-  (test-case
-   "Read-only receivers"
-   (define mc (make-multicast-channel))
-   (define ac (make-multicast-receiver mc))
-   
-   (check-exn #rx"read-only"
-              (thunk (async-channel-put ac 'foo))))
-  
   )
