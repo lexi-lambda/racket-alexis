@@ -21,6 +21,10 @@ Creates and returns a new @tech{multicast channel} server.}
 Returns @racket[#t] if @racket[v] is a @tech{multicast channel}, @racket[#f] otherwise.}
 
 @defproc[(make-multicast-receiver [mc multicast-channel?]) async-channel?]{
+@margin-note{
+  In Racket version 6.1.1 or earlier, writing to a reciever does not actually raise an
+  exception, but its behavior is undefined, and it is unadvised.}
+ 
 Creates a receiver asynchronous channel that receives messages from @racket[mc]. The returned value is
 a standard @tech[#:doc '(lib "scribblings/reference/reference.scrbl")]{asynchronous channel} from
 @racketmodname[racket/async-channel], but it does @italic{not} support @racket[async-channel-put].

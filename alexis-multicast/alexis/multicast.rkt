@@ -19,12 +19,6 @@
                            receiver-set
                            lock))
 
-; internal function to prohibit using async-channel-put on a channel
-(define (ac->read-only-channel ac)
-  (chaperone-async-channel
-   ac identity
-   (λ _ (error 'async-channel-put "attempted to write to a read-only multicast receiver"))))
-
 ; contructs a new multicast channel
 (define (make-multicast-channel)
   ; initialize the required members
@@ -65,8 +59,7 @@
    (with-semaphore (multicast-channel-lock mc)
      (set-add! (multicast-channel-receiver-set mc) (make-weak-box ac))))
   
-  ; return the channel, but make it read-only
-  (ac->read-only-channel ac))
+  ac)
 
 ; broadcasts a value through a multicast channel
 (define (multicast-channel-put mc v)
