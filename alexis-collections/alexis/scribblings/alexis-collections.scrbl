@@ -158,6 +158,10 @@ A predicate that identifies if @racket[v] is a @tech{generic sequence}.}
 
 @defproc[(cons [value any/c] [sequence sequence?]) sequence?]{
 
+@margin-note{
+Since this version of @racket[cons] is sequence-specific, it can't be used for constructing arbitrary
+pairs. Instead, use @racket[pair].}
+
 Prepends @racket[value] onto the @racket[sequence]. Sequences are not @italic{required} to be
 heterogenous, and @reftech{strings}, for example, only accept @reftech{characters} as sequence
 elements.}
