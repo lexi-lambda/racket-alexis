@@ -5,5 +5,3 @@ This is a collection of utilities I’ve found useful while working with Racket.
 - [`alexis-util`](http://pkg-build.racket-lang.org/doc/alexis-util/) — A set of various odds and ends that I’ve found helpful, primarily in the form of generalized macros and shortcut forms. Consult the documentation for a full listing.
 
 - [`alexis-multicast`](http://pkg-build.racket-lang.org/doc/alexis-multicast/) — An implementation of “multicast async channels”. Like `racket/async-channel`, but with support for one-to-many broadcasts of messages.
-
-- [`alexis-collections`](http://pkg-build.racket-lang.org/doc/alexis-collections/) — Rewriting Racket’s collections API to use a generic interface! Overrides some of `racket/base`’s bindings with generic ones.
