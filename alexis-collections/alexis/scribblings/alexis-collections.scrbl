@@ -25,6 +25,18 @@ for built-in Racket collections to create a unified interface for working with R
 @seclink["structures" #:doc '(lib "scribblings/reference/reference.scrbl")]{User-defined structures}
 may also implement the collections API to provide implementations for additional datatypes.
 
+This collection provides certain bindings that conflict with @racketmodname[racket/base]. Most of the
+time, this is not a problem. Overriding bindings imported via @tt{#lang} is fine, and almost all
+of the new bindings will still work if used like their original counterparts.
+
+One notable exception to this rule is @racket[cons], which is overriden by
+@racketmodname[alexis/collection/sequence] and does not work for constructing pairs. Instead, use
+@racket[pair]. Also, if you for some reason aren't including @racketmodname[racket/base] via
+@tt{#lang}, you can use @racketmodname[alexis/collection+base] instead.
+
+Also, @racketmodname[alexis/collection] exports the bindings from both
+@racketmodname[alexis/collection/countable] and @racketmodname[alexis/collection/sequence].
+
 @section{Countable Collections}
 
 @defmodule[alexis/collection/countable]
@@ -223,3 +235,10 @@ through @tech{generic sequences} in @racket[for] forms.}
 
 Identical to @racket[base:cons], re-exported by @racketmodname[alexis/collection/sequence] since
 @racket[cons] is no longer usable for creating @reftech{pairs}.}
+
+@section{Convenience Module}
+
+@defmodule[alexis/collection+base]
+
+Exports all the bindings from @racketmodname[alexis/collection] and @racketmodname[racket/base], but
+uses the bindings from @racketmodname[alexis/collection] when the two conflict.
