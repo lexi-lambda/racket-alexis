@@ -2,9 +2,22 @@
 
 @(require (for-label racket/base
                      racket/function
+                     racket/contract
+                     (only-in typed/racket/base
+                              Any Boolean)
+                     alexis/bool
                      alexis/util/abbreviations))
 
 @title{Extra Utilities}
+
+@section{The @code{true?} Predicate}
+
+@defmodule*[(alexis/bool
+             typed/alexis/bool)]
+
+@defproc*[([(true? [v any/c]) boolean?]
+           [(true? [v Any]) Boolean])]{
+Equivalent to @racket[(if v #t #f)]. Useful for casting values to booleans.}
 
 @section{Abbreviation Macros}
 
