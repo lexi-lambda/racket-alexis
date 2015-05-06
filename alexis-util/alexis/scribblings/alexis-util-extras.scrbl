@@ -1,12 +1,15 @@
 #lang scribble/manual
 
 @(require (for-label racket/base
+                     racket/list
                      racket/function
                      racket/contract
                      (only-in typed/racket/base
                               Any Boolean)
                      alexis/bool
-                     alexis/util/abbreviations))
+                     alexis/util/abbreviations
+                     alexis/util/threading)
+          scribble/eval)
 
 @title{Extra Utilities}
 
@@ -48,3 +51,44 @@ Equivalent to:
 @(racketblock
   (call-with-semaphore semaphore-expr
     (thunk body)))}
+
+@section{Threading Macros}
+
+@defmodule[alexis/util/threading]
+
+This provides a Clojure-inspired threading macro, but it allows the insertion point to be explicitly
+specified in the case that the first argument is not the proper threading point.
+
+@defform[#:literals (<> ♢)
+         (~> expr clause ...)
+         #:grammar
+         ([clause bare-id
+                  (fn-expr arg-expr ...)
+                  (fn-expr pre-expr ... hole-marker post-expr ...)]
+          [hole-marker <> ♢])]{
+"Threads" the @racket[expr] through the @racket[clause] expressions, from top to bottom. If a
+@racket[clause] is a @racket[bare-id], then the clause is transformed into the form
+@racket[(bare-id)] before threading. If the clause is a function application without a
+@racket[hole-marker], it is transformed into a function application with the @racket[hole-marker]
+placed immediately after the @racket[fn-expr].
+
+Once the initial transformation has been completed, the @racket[expr] is threaded through the clauses
+by nesting it within each clause, replacing the hole marker.
+
+@(examples
+  #:eval ((make-eval-factory '(racket/list
+                               racket/function
+                               alexis/util/threading)))
+  (~> '(1 2 3)
+      (map add1 ♢)
+      second
+      (* 2))
+  (~> "foo"
+      string->bytes/utf-8
+      bytes->list
+      (map (curry * 2) ♢)
+      list->bytes))}
+
+@deftogether[(@defidform[<>]
+              @defidform[♢])]{
+These are both the same binding, so they can both be used as hole markers for @racket[~>].}
