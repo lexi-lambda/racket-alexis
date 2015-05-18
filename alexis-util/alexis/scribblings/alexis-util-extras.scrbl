@@ -4,10 +4,12 @@
                      racket/list
                      racket/function
                      racket/contract
+                     racket/match
                      (only-in typed/racket/base
                               Any Boolean)
                      alexis/bool
                      alexis/util/abbreviations
+                     alexis/util/match
                      alexis/util/threading)
           scribble/eval)
 
@@ -21,6 +23,21 @@
 @defproc*[([(true? [v any/c]) boolean?]
            [(true? [v Any]) Boolean])]{
 Equivalent to @racket[(if v #t #f)]. Useful for casting values to booleans.}
+
+@section{Pattern Matching in Simple Functions}
+
+@defmodule[alexis/util/match]
+
+@defform[(define/match* (head-id args) body)
+         #:grammar
+         ([args (code:line match-expr ...)
+                (code:line match-expr ... @#,racketparenfont{.} rest-expr)])]{
+Equivalent to:
+@(racketblock
+  (define (head-id args*)
+    (match* (args*)
+      [(args) body])))
+where @racket[args*] is a list of unique identifiers generated corresponding to each @racket[_arg].}
 
 @section{Abbreviation Macros}
 
