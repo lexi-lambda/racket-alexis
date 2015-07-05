@@ -61,7 +61,7 @@
      (define/with-syntax ([name-field-set name-field-update
                            (name-field-pre ...) (name-field-post ...)]
                           ...)
-       (get-setters+updaters all-accessors accessors stx))
+       (get-setters+updaters all-accessors accessors #'name))
      ; now we just need to generate the actual function code
      #'(begin
          (define/contract (name-field-set instance value)
