@@ -12,6 +12,8 @@
 (provide define-struct-updaters
          struct-updaters-out
          struct+updaters-out)
+(module+ get-struct-accessors
+  (provide (for-syntax get-struct-accessors)))
 
 ; Extracts the fields belonging to a struct, not including its supertypes. The first value returned
 ; includes all accessors, the second value is just the struct's fields.
