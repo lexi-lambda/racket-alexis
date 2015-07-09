@@ -3,7 +3,10 @@
 @(require (for-label racket/base
                      racket/contract/base
                      alexis/util/comparator
-                     alexis/util/struct)
+                     alexis/util/struct
+                     (submod alexis/util/struct get-struct-accessors)
+                     racket/struct-info
+                     )
           racket/sandbox
           scribble/eval)
 
@@ -119,3 +122,15 @@ as a simple way to provide the setters and updaters generated via @racket[define
 @defform[(struct+updaters-out struct-id)]{
 This is a shorthand for providing both @racket[(struct-out struct-id)] and
 @racket[(struct-updaters-out struct-id)].}
+
+@subsection{Helper function for getting struct accessors}
+
+@defmodule[(submod alexis/util/struct get-struct-accessors)]
+
+@defproc[(get-struct-accessors [struct-info (and/c struct-info? list?)] [failure-context syntax?])
+         (values (listof identifier?) (listof identifier?))]{
+Extracts the fields belonging to a struct, not including its supertypes. The first value returned
+includes all accessors, the second value is just the struct's fields.
+
+This function is provided @racket[for-syntax] from the submodule.
+}
