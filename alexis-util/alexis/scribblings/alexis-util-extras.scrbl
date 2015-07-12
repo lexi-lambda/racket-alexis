@@ -105,3 +105,27 @@ by nesting it within each clause, replacing the hole marker.
       bytes->list
       (map (curry * 2) _)
       list->bytes))}
+
+@defform[#:literals (_)
+         (~>> expr clause ...)
+         #:grammar
+         ([clause bare-id
+                  (fn-expr arg-expr ...)
+                  (fn-expr pre-expr ... hole-marker post-expr ...)]
+          [hole-marker _])]{
+Works equivalently to @racket[~>] except that when no @racket[hole-marker] is provided, the insertion
+point is at the @emph{end}, just after the final @racket[arg-expr].
+
+@(examples
+  #:eval ((make-eval-factory '(racket/list
+                               racket/function
+                               alexis/util/threading)))
+  (~>> '(1 2 3)
+       (map add1)
+       second
+       (* 2))
+  (~>> "foo"
+       string->bytes/utf-8
+       bytes->list
+       (map (curry * 2))
+       list->bytes))}
