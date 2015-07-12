@@ -6,7 +6,6 @@ env:
   global:
     - RACKET_DIR=~/racket
   matrix:
-    - RACKET_VERSION=6.1.1 PACKAGE=alexis-util
     - RACKET_VERSION=6.2   PACKAGE=alexis-util
     - RACKET_VERSION=6.2   PACKAGE=alexis-multicast
     - RACKET_VERSION=HEAD  PACKAGE=alexis-util
