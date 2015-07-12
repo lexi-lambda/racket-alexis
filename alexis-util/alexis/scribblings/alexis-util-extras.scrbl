@@ -76,13 +76,13 @@ Equivalent to:
 This provides a Clojure-inspired threading macro, but it allows the insertion point to be explicitly
 specified in the case that the first argument is not the proper threading point.
 
-@defform[#:literals (<> ♢)
+@defform[#:literals (_)
          (~> expr clause ...)
          #:grammar
          ([clause bare-id
                   (fn-expr arg-expr ...)
                   (fn-expr pre-expr ... hole-marker post-expr ...)]
-          [hole-marker <> ♢])]{
+          [hole-marker _])]{
 "Threads" the @racket[expr] through the @racket[clause] expressions, from top to bottom. If a
 @racket[clause] is a @racket[bare-id], then the clause is transformed into the form
 @racket[(bare-id)] before threading. If the clause is a function application without a
@@ -97,15 +97,11 @@ by nesting it within each clause, replacing the hole marker.
                                racket/function
                                alexis/util/threading)))
   (~> '(1 2 3)
-      (map add1 ♢)
+      (map add1 _)
       second
       (* 2))
   (~> "foo"
       string->bytes/utf-8
       bytes->list
-      (map (curry * 2) ♢)
+      (map (curry * 2) _)
       list->bytes))}
-
-@deftogether[(@defidform[<>]
-              @defidform[♢])]{
-These are both the same binding, so they can both be used as hole markers for @racket[~>].}

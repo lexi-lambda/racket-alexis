@@ -4,21 +4,18 @@
                      racket/list
                      syntax/parse))
 
-(provide ~> <> (rename-out [<> ♢]))
-
-(define-syntax (<> stx)
-  (raise-syntax-error #f "hole marker not allowed as an expression" stx))
+(provide ~> _)
 
 (define-syntax (~> stx)
   (define-syntax-class clause
-    #:literals (<>)
+    #:literals (_)
     #:attributes (call insertion-point)
     (pattern
      id:id
      #:with call #'(id)
      #:attr insertion-point 0)
     (pattern
-     (head:expr pre ... <> post ...)
+     (head:expr pre ... _ post ...)
      #:with call #'(head pre ... post ...)
      #:attr insertion-point (length (syntax->list #'(pre ...))))
     (pattern
