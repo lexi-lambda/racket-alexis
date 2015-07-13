@@ -20,6 +20,5 @@ before_script:
 
 script:
   - raco test -xp $PACKAGE
-  - raco cover -f coveralls -d $TRAVIS_BUILD_DIR/coverage -p $PACKAGE
 
 after_script:
