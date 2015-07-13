@@ -2,9 +2,13 @@
 
 (require (for-syntax racket/base
                      racket/list
-                     syntax/parse))
+                     syntax/parse
+                     syntax/parse/define))
 
-(provide ~> ~>> _)
+(provide ~> ~>> _
+         lambda~> lambda~>> lambda~>* lambda~>>*
+         (rename-out [lambda~> λ~>] [lambda~>> λ~>>]
+                     [lambda~>* λ~>*] [lambda~>>* λ~>>*]))
 
 (begin-for-syntax
   (define-syntax-class clause
@@ -44,3 +48,15 @@
       (with-syntax ([(pre ...) pre]
                     [(post ...) post])
         #'(~>> (pre ... ex post ...) remaining ...))])))
+
+(define-syntax-rule (lambda~> . body)
+  (lambda (x) (~> x . body)))
+
+(define-syntax-rule (lambda~>> . body)
+  (lambda (x) (~>> x . body)))
+
+(define-syntax-rule (lambda~>* . body)
+  (lambda x (~> x . body)))
+
+(define-syntax-rule (lambda~>>* . body)
+  (lambda x (~>> x . body)))

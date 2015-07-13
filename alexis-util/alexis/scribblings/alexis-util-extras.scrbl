@@ -5,6 +5,7 @@
                      racket/function
                      racket/contract
                      racket/match
+                     racket/math
                      (only-in typed/racket/base
                               Any Boolean)
                      alexis/bool
@@ -76,6 +77,12 @@ Equivalent to:
 This provides a Clojure-inspired threading macro, but it allows the insertion point to be explicitly
 specified in the case that the first argument is not the proper threading point.
 
+@(define threading-eval
+   (make-eval-factory '(alexis/util/threading
+                        racket/function
+                        racket/list
+                        racket/math)))
+
 @defform[#:literals (_)
          (~> expr clause ...)
          #:grammar
@@ -93,9 +100,7 @@ Once the initial transformation has been completed, the @racket[expr] is threade
 by nesting it within each clause, replacing the hole marker.
 
 @(examples
-  #:eval ((make-eval-factory '(racket/list
-                               racket/function
-                               alexis/util/threading)))
+  #:eval (threading-eval)
   (~> '(1 2 3)
       (map add1 _)
       second
@@ -117,9 +122,7 @@ Works equivalently to @racket[~>] except that when no @racket[hole-marker] is pr
 point is at the @emph{end}, just after the final @racket[arg-expr].
 
 @(examples
-  #:eval ((make-eval-factory '(racket/list
-                               racket/function
-                               alexis/util/threading)))
+  #:eval (threading-eval)
   (~>> '(1 2 3)
        (map add1)
        second
@@ -129,3 +132,27 @@ point is at the @emph{end}, just after the final @racket[arg-expr].
        bytes->list
        (map (curry * 2))
        list->bytes))}
+
+@deftogether[(@defform[(lambda~> clause ...)]
+              @defform[(λ~> clause ...)])]{
+Equivalent to @racket[(λ (arg) (~> arg clause ...))].
+
+@(examples
+  #:eval (threading-eval)
+  (map (λ~> add1 (* 2)) (range 5)))}
+
+@deftogether[(@defform[(lambda~>> clause ...)]
+              @defform[(λ~>> clause ...)])]{
+Like @racket[lambda~>], but uses @racket[~>>] instead of @racket[~>].}
+
+@deftogether[(@defform[(lambda~>* clause ...)]
+              @defform[(λ~>* clause ...)])]{
+Equivalent to @racket[(λ args (~> args clause ...))].
+
+@(examples
+  #:eval (threading-eval)
+  ((λ~>* second sqr) 1 2 3))}
+
+@deftogether[(@defform[(lambda~>>* clause ...)]
+              @defform[(λ~>>* clause ...)])]{
+Like @racket[lambda~>*], but uses @racket[~>>] instead of @racket[~>].}
