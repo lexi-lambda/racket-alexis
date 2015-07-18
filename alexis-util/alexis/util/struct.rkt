@@ -89,7 +89,7 @@
         (define struct-info (extract-struct-info (syntax-local-value #'struct-type)))
         (define-values (all-accessors accessors) (get-struct-accessors struct-info #'struct-type))
         (define/with-syntax ([setter updater _ _] ...)
-          (get-setters+updaters all-accessors accessors stx))
+          (get-setters+updaters all-accessors accessors #'struct-type))
         (expand-export #'(combine-out setter ... updater ...) modes)]))))
 
 ; utility for providing both struct-out and struct-updaters-out
