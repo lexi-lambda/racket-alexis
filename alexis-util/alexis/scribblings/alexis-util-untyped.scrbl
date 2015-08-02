@@ -6,7 +6,6 @@
                      alexis/util/struct
                      (submod alexis/util/struct get-struct-accessors)
                      racket/struct-info)
-          racket/sandbox
           scribble/eval)
 
 @title{Untyped Utilities}
@@ -16,12 +15,8 @@
 @defmodule[alexis/util/comparator]
 
 @(define comparison-predicates-evaluator
-   (parameterize ([sandbox-output 'string]
-                  [sandbox-error-output 'string]
-                  [sandbox-memory-limit #f])
-     (make-evaluator 'racket/base)))
-@(comparison-predicates-evaluator
-  '(require alexis/util/comparator))
+   ((make-eval-factory #:lang 'racket/base
+                       '(alexis/util/comparator))))
 
 See also @racketmodname[typed/alexis/util/comparator] for Typed Racket-compatible forms.
 
@@ -83,12 +78,8 @@ generated provides use the renamed base identifier.}
 @defmodule[alexis/util/struct]
 
 @(define struct-evaluator
-   (parameterize ([sandbox-output 'string]
-                  [sandbox-error-output 'string]
-                  [sandbox-memory-limit #f])
-     (make-evaluator 'racket/base)))
-@(struct-evaluator
-  '(require alexis/util/struct))
+   ((make-eval-factory #:lang 'racket/base
+                       '(alexis/util/struct))))
 
 @subsection{Purely Functional Struct Updaters}
 

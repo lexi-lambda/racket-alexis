@@ -3,7 +3,6 @@
 @(require (for-label typed/racket/base
                      typed/alexis/util/comparator
                      (only-in alexis/util/comparator comparison-predicates-out))
-          racket/sandbox
           scribble/eval)
 
 @title{Typed Utilities}
@@ -13,10 +12,7 @@
 @defmodule[typed/alexis/util/comparator]
 
 @(define comparison-predicates-evaluator
-   (parameterize ([sandbox-output 'string]
-                  [sandbox-error-output 'string]
-                  [sandbox-memory-limit #f])
-     (make-evaluator 'typed/racket/base)))
+   ((make-eval-factory #:lang 'typed/racket/base '())))
 @(comparison-predicates-evaluator
   '(require typed/alexis/util/comparator))
 
