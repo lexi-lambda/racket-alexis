@@ -6,7 +6,8 @@
                      alexis/util/struct
                      (submod alexis/util/struct get-struct-accessors)
                      racket/struct-info)
-          scribble/eval)
+          scribble/eval
+          scribble/extract)
 
 @title{Untyped Utilities}
 
@@ -123,3 +124,21 @@ Extracts the fields belonging to a struct, not including its supertypes. The fir
 includes all accessors, the second value is just the struct's fields.
 
 This function is provided @racket[for-syntax].}
+
+@section{Wrapping keyword procedures}
+
+@defmodule[alexis/util/wrap]
+
+It's easy to "wrap" existing procedures in order to extend them with additional functionality. For
+example, the following wraps @racket[+] to additionally call @racket[add1] on the result:
+
+@(racketblock
+  (define (+/add1 . args)
+    (add1 (apply + args))))
+
+This is much harder to do, however, if the procedure being wrapped can accept keyword arguments, since
+they are not accepted in the "rest argument" syntax. Instead, @racket[make-keyword-procedure] and
+@racket[keyword-apply] must be used. This module provides some macros to make wrapping these
+procedures easier.
+
+@include-extracted[alexis/util/wrap]
