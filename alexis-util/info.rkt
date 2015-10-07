@@ -7,11 +7,13 @@
 
 (define deps
   '("base"
-    "typed-racket-lib"))
+    "typed-racket-lib"
+    "scribble-lib"))
 (define build-deps
   '("rackunit-lib"
-    "scribble-lib"
+    "at-exp-lib"
     "racket-doc"
     "typed-racket-doc"
     "sandbox-lib"
-    "cover"))
+    "cover"
+    "cover-coveralls"))
