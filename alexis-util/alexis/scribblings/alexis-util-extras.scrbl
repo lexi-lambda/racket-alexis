@@ -133,6 +133,32 @@ point is at the @emph{end}, just after the final @racket[arg-expr].
        (map (curry * 2))
        list->bytes))}
 
+@defform[(and~> expr clause ...)]{
+Works like @racket[~>], but if any of the intermediate expressions returns @racket[#f], threading
+stops, and the result of the whole expression is @racket[#f]. Like @racket[and], this is
+short-circuiting, so the remaining steps will not be evaluated.
+
+@(examples
+  #:eval (threading-eval)
+  (and~> '(1 3 5)
+         (map add1 _)
+         (findf even? _))
+  (and~> '(2 4 6)
+         (map add1 _)
+         (findf even? _)))}
+
+@defform[(and~>> expr clause ...)]{
+Combines the threading behavior of @racket[~>>] and the short-circuiting behavior of @racket[and~>].
+
+@(examples
+  #:eval (threading-eval)
+  (and~>> '(1 3 5)
+          (map add1)
+          (findf even?))
+  (and~>> '(2 4 6)
+          (map add1)
+          (findf even?)))}
+
 @deftogether[(@defform[(lambda~> clause ...)]
               @defform[(λ~> clause ...)])]{
 Equivalent to @racket[(λ (arg) (~> arg clause ...))].
@@ -156,3 +182,14 @@ Equivalent to @racket[(λ args (~> args clause ...))].
 @deftogether[(@defform[(lambda~>>* clause ...)]
               @defform[(λ~>>* clause ...)])]{
 Like @racket[lambda~>*], but uses @racket[~>>] instead of @racket[~>].}
+
+@deftogether[(@defform[(lambda-and~> clause ...)]
+              @defform[(λ-and~> clause ...)]
+              @defform[(lambda-and~>> clause ...)]
+              @defform[(λ-and~>> clause ...)]
+              @defform[(lambda-and~>* clause ...)]
+              @defform[(λ-and~>* clause ...)]
+              @defform[(lambda-and~>>* clause ...)]
+              @defform[(λ-and~>>* clause ...)])]{
+Like @racket[lambda~>] and @racket[lambda~>*], but with the short-circuiting behavior of
+@racket[and~>] and @racket[and~>>].}
