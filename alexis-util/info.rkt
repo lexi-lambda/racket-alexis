@@ -7,8 +7,9 @@
 
 (define deps
   '("base"
-    "typed-racket-lib"
-    "scribble-lib"))
+    "scribble-lib"
+    "threading"
+    "typed-racket-lib"))
 (define build-deps
   '("rackunit-lib"
     "at-exp-lib"
