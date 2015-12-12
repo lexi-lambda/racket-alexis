@@ -11,7 +11,8 @@
                      alexis/bool
                      alexis/util/abbreviations
                      alexis/util/match
-                     threading)
+                     threading
+                     match-plus)
           scribble/eval)
 
 @title{Extra Utilities}
@@ -29,16 +30,9 @@ Equivalent to @racket[(if v #t #f)]. Useful for casting values to booleans.}
 
 @defmodule[alexis/util/match]
 
-@defform[(define/match* (head-id args) body)
-         #:grammar
-         ([args (code:line match-expr ...)
-                (code:line match-expr ... @#,racketparenfont{.} rest-expr)])]{
-Equivalent to:
-@(racketblock
-  (define (head-id args*)
-    (match* (args*)
-      [(args) body])))
-where @racket[args*] is a list of unique identifiers generated corresponding to each @racket[_arg].}
+@deprecated[@racketmodname[match-plus]]{
+  This module re-exports @racket[define/match*] from @racketmodname[match-plus] for
+  backwards-compatibility.}
 
 @section{Abbreviation Macros}
 

@@ -7,6 +7,7 @@
 
 (define deps
   '("base"
+    "match-plus"
     "scribble-lib"
     "threading"
     "typed-racket-lib"))
