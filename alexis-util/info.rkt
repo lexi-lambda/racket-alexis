@@ -9,6 +9,7 @@
   '("base"
     "match-plus"
     "scribble-lib"
+    "static-rename"
     "threading"
     "typed-racket-lib"))
 (define build-deps
