@@ -17,6 +17,4 @@
     "at-exp-lib"
     "racket-doc"
     "typed-racket-doc"
-    "sandbox-lib"
-    "cover"
-    "cover-coveralls"))
+    "sandbox-lib"))
