@@ -10,6 +10,7 @@
     "match-plus"
     "scribble-lib"
     "static-rename"
+    "struct-updaters"
     "threading"
     "typed-racket-lib"))
 (define build-deps
