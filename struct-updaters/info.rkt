@@ -2,13 +2,14 @@
 
 (define collection 'multi)
 
-(define name "alexis-multicast")
+(define name "struct-updaters")
 (define version "0.1.0")
 
 (define deps
   '("base"
-    "alexis-util"))
+    ))
 (define build-deps
   '("rackunit-lib"
+    "scribble-lib"
     "racket-doc"
-    "scribble-lib"))
+    ))
