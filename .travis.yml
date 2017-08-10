@@ -1,7 +1,5 @@
 language: c
 
-sudo: false
-
 env:
   global:
     - RACKET_DIR=~/racket
@@ -16,12 +14,8 @@ before_install:
 
 install:
   - raco pkg install --deps search-auto --link $TRAVIS_BUILD_DIR/$PACKAGE
-  - raco pkg install cover cover-coveralls
-
-before_script:
+  - raco pkg install --deps search-auto cover cover-coveralls
 
 script:
   - raco test -xp $PACKAGE
   - raco cover -f coveralls -d $TRAVIS_BUILD_DIR/coverage -p $PACKAGE
-
-after_script:
